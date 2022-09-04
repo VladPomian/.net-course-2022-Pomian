@@ -2,16 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BankSystem.Models
+namespace Models
 {
-    public class Currency
+    public struct Currency
     {
-        public string Name { get; }
-        public int Price { get; }
-        public Currency(string name, int price)
-        {
-            Name = name;
-            Price = price;
-        }
+        public string Name { get; set; }
+        public int Code { get; set; }
     }
 }

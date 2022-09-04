@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BankSystem.Models
+namespace Models
 {
     public class Employee : Person
     {
-        public string Name { get; set; }
-        public int Age { get; set; }
-        public int Passport { get; set; }
-        public decimal Wage { get; set; }
+        public string Contract { get; set; }
+        public decimal Salary { get; set; }
 
         public override bool Equals(object obj)
         {
@@ -22,15 +20,24 @@ namespace BankSystem.Models
                 return false;
             }
 
-            Employee employee = (Employee)obj;
-            return employee.Name == Name &&
-                   employee.Age == Age &&
-                   employee.Passport == Passport &&
-                   employee.Wage == Wage;
+            Employee result = (Employee)obj;
+            return FirstName == result.FirstName
+                && LastName == result.LastName
+                && Patronymic == result.Patronymic
+                && Passport == result.Passport
+                && Phone == result.Phone
+                && BirthDate == result.BirthDate
+                && Contract == result.Contract
+                && Salary == result.Salary;
         }
-        public override int GetHashCode()
+        public static bool operator ==(Employee firstEmployee, Employee secondEmployee)
         {
-            return Name.GetHashCode() + Age.GetHashCode() + Passport.GetHashCode() + Wage.GetHashCode();
+            return firstEmployee.Equals(secondEmployee);
+        }
+
+        public static bool operator !=(Employee firstEmployee, Employee secondEmployee)
+        {
+            return !firstEmployee.Equals(secondEmployee);
         }
     }
 }

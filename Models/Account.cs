@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BankSystem.Models
+namespace Models
 {
     public class Account
     {
-        public decimal Money { get; set; }
-        public Currency CurrencyType { get; set; }
+        public Currency Currency { get; set; }
+        public int Amount { get; set; }
     }
 }

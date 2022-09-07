@@ -1,0 +1,27 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Models;
+using Exceptions;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Services
+{
+    public class ClientService
+    {
+        List<Client> persons = new List<Client>();
+        public void AddClients(Client person)
+        {
+            if (person.BirthDate > DateTime.Parse("01.01.2004"))
+            {
+                throw new AgeLimitException("Клиент несовершеннолетний");
+            }
+            if (person.Passport == 0)
+            {
+                throw new Doesn_tHaveAPassport("У клиента нет паспортных данных");
+            }
+            persons.Add(person);
+        }
+    }
+}

@@ -27,7 +27,7 @@ namespace Services
 
             if (person.Passport == 0)
             {
-                throw new Doesn_tHaveAPassport("У клиента нет паспортных данных");
+                throw new NoPassportException("У клиента нет паспортных данных");
             }
 
             _clientStorage.AddClient(person);
@@ -53,9 +53,9 @@ namespace Services
                 return _clientStorage.clientStorage.Where(p => p.Key.Phone == clientFilter.Phone).ToDictionary(d => d.Key, d => d.Value);
             }
 
-            if (clientFilter.BirthDateRange != null)
+            if (clientFilter.BirthDayRangeStart != null && clientFilter.BirthDayRangeEnd != null)
             {
-                return _clientStorage.clientStorage.Where(p => p.Key.BirthDate >= clientFilter.BirthDateRange[0] && p.Key.BirthDate <= clientFilter.BirthDateRange[1])
+                return _clientStorage.clientStorage.Where(p => p.Key.BirthDate >= clientFilter.BirthDayRangeStart && p.Key.BirthDate <= clientFilter.BirthDayRangeEnd)
                                                    .ToDictionary(d => d.Key, d => d.Value);
             }
 
@@ -64,7 +64,7 @@ namespace Services
                                                .Where(p => p.Key.Patronymic == clientFilter.Patronymic)
                                                .Where(p => p.Key.Passport == clientFilter.Passport)
                                                .Where(p => p.Key.Phone == clientFilter.Phone)
-                                               .Where(p => p.Key.BirthDate >= clientFilter.BirthDateRange[0] && p.Key.BirthDate <= clientFilter.BirthDateRange[1])
+                                               .Where(p => p.Key.BirthDate >= clientFilter.BirthDayRangeStart && p.Key.BirthDate <= clientFilter.BirthDayRangeEnd)
                                                .ToDictionary(d => d.Key, d => d.Value);
         }
     }

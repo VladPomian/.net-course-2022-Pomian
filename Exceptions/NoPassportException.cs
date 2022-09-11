@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Exceptions
 {
-    public class Doesn_tHaveAPassport : Exception
+    public class NoPassportException : Exception
     {
-        public Doesn_tHaveAPassport(string message) : base(message)
+        public NoPassportException(string message) : base(message)
         { }
     }
 }

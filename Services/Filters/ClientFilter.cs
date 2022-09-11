@@ -10,7 +10,8 @@ namespace Services.Filters
         public string LastName { get; set; }
         public string Patronymic { get; set; }
         public int Passport { get; set; }
-        public int Phone { get; set; }
-        public DateTime[] BirthDateRange { get; set; } = new DateTime[2];
+        public int Phone { get; set; } 
+        public DateTime BirthDayRangeStart { get; set; }
+        public DateTime BirthDayRangeEnd { get; set; }
     }
 }

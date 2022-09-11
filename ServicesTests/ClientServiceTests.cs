@@ -30,7 +30,7 @@ namespace ServicesTests
         }
 
         [Fact]
-        public void AddClient_Doesn_tHaveAPassportTest()
+        public void AddClient_NoPassportExceptionTest()
         {
             //Arrange
             var addClient = new ClientService(new ClientStorage());
@@ -42,7 +42,7 @@ namespace ServicesTests
             };
 
             //Act//Assert
-            Assert.Throws<Doesn_tHaveAPassport>(() => addClient.AddClients(person));
+            Assert.Throws<NoPassportException>(() => addClient.AddClients(person));
         }
 
         [Fact]
@@ -88,7 +88,8 @@ namespace ServicesTests
 
             var setTheRange = addClient.GetClients(new ClientFilter()
             {
-                BirthDateRange = new DateTime[2] { DateTime.Parse("01.01.1950"), DateTime.Parse("31.12.2004") }
+                BirthDayRangeStart = DateTime.Parse("01.01.1950"),
+                BirthDayRangeEnd = DateTime.Parse("31.12.2004")
             });
 
             var youth = setTheRange.Max(p => p.Key.BirthDate);
@@ -101,6 +102,29 @@ namespace ServicesTests
             Assert.Equal(youth, clientFirst.BirthDate);
             Assert.Equal(older, clientSecond.BirthDate);
             Assert.Equal(1989, averageAge.Year);
+        }
+
+        [Fact]
+        public void AddClient_EqualNamesExceptionTest()
+        {
+            //Arrange
+            var addClient = new ClientService(new ClientStorage());
+
+            var person = new Client()
+            {
+                FirstName = "firstname",
+                LastName = "lastname",
+                Patronymic = "patronymic",
+                Passport = 1,
+                Phone = 77700001,
+                BirthDate = DateTime.Parse("07.03.2002")
+            };
+
+            //Act
+            addClient.AddClients(person);
+
+            //Assert
+            Assert.Throws<ArgumentException>(() => addClient.AddClients(person));
         }
     }
 }

@@ -13,6 +13,7 @@ namespace Services.Filters
         public int Phone { get; set; }
         public string Contract { get; set; }
         public decimal Salary { get; set; }
-        public DateTime[] BirthDateRange { get; set; } = new DateTime[2];
+        public DateTime BirthDayRangeStart { get; set; }
+        public DateTime BirthDayRangeEnd { get; set; }
     }
 }

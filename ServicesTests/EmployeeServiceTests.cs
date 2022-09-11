@@ -30,7 +30,7 @@ namespace ServicesTests
         }
 
         [Fact]
-        public void AddEmployee_Doesn_tHaveAPassportTest()
+        public void AddEmployee_NoPassportExceptionTest()
         {
             //Arrange
             var addEmployee = new EmployeeService(new EmployeeStorage());
@@ -42,7 +42,7 @@ namespace ServicesTests
             };
 
             //Act//Assert
-            Assert.Throws<Doesn_tHaveAPassport>(() => addEmployee.AddEmployees(person));
+            Assert.Throws<NoPassportException>(() => addEmployee.AddEmployees(person));
         }
 
         [Fact]
@@ -88,7 +88,8 @@ namespace ServicesTests
 
             var setTheRange = addEmployee.GetEmployees(new EmployeeFilter()
             {
-                BirthDateRange = new DateTime[2] { DateTime.Parse("01.01.1950"), DateTime.Parse("31.12.2004") }
+                BirthDayRangeStart = DateTime.Parse("01.01.1950"),
+                BirthDayRangeEnd = DateTime.Parse("31.12.2004")
             });
 
             var youth = setTheRange.Max(p => p.BirthDate);

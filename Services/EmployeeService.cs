@@ -26,7 +26,7 @@ namespace Services
             }
             if (person.Passport == 0)
             {
-                throw new Doesn_tHaveAPassport("У клиента нет паспортных данных");
+                throw new NoPassportException("У клиента нет паспортных данных");
             }
             _employeeStorage.AddEmployee(person);
         }
@@ -51,9 +51,9 @@ namespace Services
                 return _employeeStorage.employeeStorage.Where(p => p.Phone == employeeFilter.Phone).ToList();
             }
 
-            if (employeeFilter.BirthDateRange != null)
+            if (employeeFilter.BirthDayRangeStart != null && employeeFilter.BirthDayRangeEnd != null)
             {
-                return _employeeStorage.employeeStorage.Where(p => p.BirthDate >= employeeFilter.BirthDateRange[0] && p.BirthDate <= employeeFilter.BirthDateRange[1])
+                return _employeeStorage.employeeStorage.Where(p => p.BirthDate >= employeeFilter.BirthDayRangeStart && p.BirthDate <= employeeFilter.BirthDayRangeEnd)
                                                    .ToList();
             }
 
@@ -62,7 +62,7 @@ namespace Services
                                                .Where(p => p.Patronymic == employeeFilter.Patronymic)
                                                .Where(p => p.Passport == employeeFilter.Passport)
                                                .Where(p => p.Phone == employeeFilter.Phone)
-                                               .Where(p => p.BirthDate >= employeeFilter.BirthDateRange[0] && p.BirthDate <= employeeFilter.BirthDateRange[1])
+                                               .Where(p => p.BirthDate >= employeeFilter.BirthDayRangeStart && p.BirthDate <= employeeFilter.BirthDayRangeEnd)
                                                .Where(p => p.Contract == employeeFilter.Contract)
                                                .Where(p => p.Salary == employeeFilter.Salary)
                                                .ToList();
